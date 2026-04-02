@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { menuCategories } from './data/menu';
 
 const WHATSAPP = '+996779044425';
@@ -99,7 +100,7 @@ export default function Home() {
         </h2>
 
         {/* Category tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto pb-4 mb-8">
           {menuCategories.map((cat) => (
             <button
               key={cat.id}
@@ -116,36 +117,58 @@ export default function Home() {
         </div>
 
         {/* Menu items */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {activeMenu?.items.map((item) => (
-            <div
-              key={item.name}
-              className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-orange-500/50 transition-all hover:bg-white/8"
-            >
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-white font-bold text-lg leading-tight">{item.name}</h3>
-                <span className="text-orange-500 font-bold text-xl ml-2 whitespace-nowrap">{item.price} с</span>
-              </div>
-              {item.description && (
-                <p className="text-white/40 text-xs mb-4 leading-relaxed">{item.description}</p>
-              )}
-              <button
-                onClick={() => addToCart(item.name, item.price)}
-                className="w-full bg-orange-500/20 hover:bg-orange-500 border border-orange-500/50 hover:border-orange-500 text-orange-400 hover:text-white font-bold py-2 rounded-full text-sm tracking-wider transition-all"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {activeMenu?.items.map((item) => {
+            const imgSrc = item.image || activeMenu.defaultImage;
+            const inCart = cart.find((c) => c.name === item.name);
+            return (
+              <div
+                key={item.name}
+                className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-orange-500/50 transition-all flex flex-col"
               >
-                + ДОБАВИТЬ
-              </button>
-            </div>
-          ))}
+                {/* Photo */}
+                <div className="relative w-full h-44">
+                  <Image
+                    src={imgSrc}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                </div>
+
+                {/* Info */}
+                <div className="p-4 flex flex-col flex-1">
+                  <div className="flex justify-between items-start mb-1">
+                    <h3 className="text-white font-bold text-base leading-tight flex-1">{item.name}</h3>
+                    <span className="text-orange-500 font-bold text-lg ml-2 whitespace-nowrap">{item.price} с</span>
+                  </div>
+                  {item.description && (
+                    <p className="text-white/40 text-xs mb-3 leading-relaxed flex-1">{item.description}</p>
+                  )}
+                  <button
+                    onClick={() => addToCart(item.name, item.price)}
+                    className={`mt-auto w-full font-bold py-2 rounded-full text-sm tracking-wider transition-all ${
+                      inCart
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-orange-500/20 hover:bg-orange-500 border border-orange-500/50 hover:border-orange-500 text-orange-400 hover:text-white'
+                    }`}
+                  >
+                    {inCart ? `В КОРЗИНЕ (${inCart.qty})` : '+ ДОБАВИТЬ'}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* CONTACTS */}
       <section id="contacts" className="bg-black/40 border-t border-white/10 py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold tracking-widest mb-10 text-white">
-            КОНТАКТЫ
-          </h2>
+          <h2 className="text-4xl font-bold tracking-widest mb-10 text-white">КОНТАКТЫ</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10">
             <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
               <div className="text-3xl mb-3">📍</div>
