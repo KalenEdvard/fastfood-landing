@@ -23,9 +23,9 @@ export const menuCategories: MenuCategory[] = [
       { name: 'Чиккен бургер', description: 'булочка, курица в панировке, огурец, помидор, салат, кетчуп, чесночный соус', price: 189, image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=260&fit=crop' },
       { name: 'Острый бургер', description: 'булочка, котлета, маринованный огурец, помидор, айсберг, соус острый, майонез', price: 239, image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&h=260&fit=crop' },
       { name: 'Блек бургер', price: 249, image: '/images/black-burger.jpg' },
-      { name: 'Бургер американец', price: 234, image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400&h=260&fit=crop' },
-      { name: 'Бургер мексиканец', price: 235, image: 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=400&h=260&fit=crop' },
-      { name: 'Бургер британец', price: 249, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=260&fit=crop' },
+      { name: 'Бургер американец', price: 234, image: '/images/burger-american.jpg' },
+      { name: 'Бургер мексиканец', price: 235, image: '/images/burger-mexican.jpg' },
+      { name: 'Бургер британец', price: 249, image: '/images/burger-british.jpg' },
     ],
   },
   {
