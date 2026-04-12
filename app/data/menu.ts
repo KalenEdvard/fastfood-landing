@@ -160,9 +160,9 @@ export const menuCategories: MenuCategory[] = [
     defaultImage: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=260&fit=crop',
     items: [
       { name: 'Черный чай', price: 20, image: 'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=400&h=260&fit=crop' },
-      { name: 'Pepsi', description: '0.5л — 70с | 1л — 100с | 1.5л — 160с | 2л — 200с', price: 70, image: '/images/drink-pepsi.png' },
-      { name: 'Coca-Cola', description: '0.5л — 70с | 1л — 100с | 1.5л — 160с | 2л — 200с', price: 70, image: '/images/drink-cola.png' },
-      { name: 'Bon aqua', description: '0.5л — 35с | 1л — 60с', price: 35, image: '/images/drink-bonaqua.png' },
+      { name: 'Pepsi', price: 70, image: '/images/drink-pepsi.png', variants: [{ label: '0.5 л', price: 70 }, { label: '1 л', price: 100 }, { label: '1.5 л', price: 160 }, { label: '2 л', price: 200 }] },
+      { name: 'Coca-Cola', price: 70, image: '/images/drink-cola.png', variants: [{ label: '0.5 л', price: 70 }, { label: '1 л', price: 100 }, { label: '1.5 л', price: 160 }, { label: '2 л', price: 200 }] },
+      { name: 'Bon aqua', price: 35, image: '/images/drink-bonaqua.png', variants: [{ label: '0.5 л', price: 35 }, { label: '1 л', price: 60 }] },
     ],
   },
 ];
