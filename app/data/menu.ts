@@ -152,6 +152,10 @@ export const menuCategories: MenuCategory[] = [
       { name: 'Комбо №2', description: 'Чиккен бургер, гамбургер, фри, кола 1л', price: 649, image: '/images/combo-2.png' },
       { name: 'Комбо №3', description: 'Стрипсы 6шт, нагетцы 6шт, фри, соус на выбор, фанта/кола на выбор', price: 599, image: '/images/combo-3.png' },
       { name: 'Комбо №4', description: 'Пицца мясной, крылышки 24шт, стрипсы 12шт, соус, кетчуп', price: 1799, image: '/images/combo-4.png' },
+      { name: 'Комбо №5', description: 'Пицца маргарита 40см, крылышки 12шт, фри, фанта/кола на выбор, соус кетчуп, соус сырный', price: 1099, image: '/images/combo-5.png' },
+      { name: 'Комбо №6', description: 'Гамбургер, шаурма куриный, фанта/кола 1л на выбор, пицца 4 сезона 40см', price: 1000, image: '/images/combo-6.png' },
+      { name: 'Комбо №7', description: 'Пицца маргарита 40см, пицца мясной 40см, пицца куриный 40см', price: 1099, image: '/images/combo-7.png' },
+      { name: 'Комбо №8', description: 'Крылышки 4шт, шаурма куриный, чай', price: 349, image: '/images/combo-8.png' },
     ],
   },
   {
