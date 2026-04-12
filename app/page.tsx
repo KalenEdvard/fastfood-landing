@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { menuCategories } from './data/menu';
 
-const WHATSAPP = '+996779044425';
+const WHATSAPP = '+996505250225';
 
 function whatsappLink(text: string) {
   return `https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`;
@@ -14,6 +14,8 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState('burgers');
   const [cart, setCart] = useState<{ name: string; price: number; qty: number }[]>([]);
   const [showCart, setShowCart] = useState(false);
+  const [showNav, setShowNav] = useState(false);
+  const [selectedVariants, setSelectedVariants] = useState<Record<string, number>>({});
 
   const activeMenu = menuCategories.find((c) => c.id === activeCategory);
 
@@ -34,7 +36,7 @@ export default function Home() {
 
   function buildOrderText() {
     const lines = cart.map((i) => `• ${i.name} x${i.qty} — ${i.price * i.qty} сом`);
-    return `Привет! Хочу заказать:\n${lines.join('\n')}\n\nИтого: ${totalPrice} сом`;
+    return `Саламатсызбы! Заказ берүүнү каалайм:\n${lines.join('\n')}\n\nЖалпы: ${totalPrice} сом`;
   }
 
   return (
@@ -42,12 +44,20 @@ export default function Home() {
       {/* HEADER */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-bold tracking-widest text-white">KOROZ</span>
-            <span className="text-2xl font-bold tracking-widest text-orange-500"> FOOD</span>
+          <div className="flex items-center gap-3">
+            {/* Hamburger */}
+            <button onClick={() => setShowNav(true)} className="flex flex-col gap-1.5 p-1 group">
+              <span className="block w-6 h-0.5 bg-white group-hover:bg-orange-500 transition-colors" />
+              <span className="block w-6 h-0.5 bg-white group-hover:bg-orange-500 transition-colors" />
+              <span className="block w-6 h-0.5 bg-white group-hover:bg-orange-500 transition-colors" />
+            </button>
+            <Image src="/images/logo.jpeg" alt="Koroz Food Logo" width={44} height={44} className="rounded-full object-cover" unoptimized />
+            <div>
+              <span className="text-2xl font-bold tracking-widest text-white">KOROZ</span>
+              <span className="text-2xl font-bold tracking-widest text-orange-500"> FOOD</span>
+            </div>
           </div>
           <div className="flex items-center gap-4">
-            <a href="#menu" className="hidden sm:block text-sm text-white/70 hover:text-white transition-colors">Меню</a>
             <a href="#contacts" className="hidden sm:block text-sm text-white/70 hover:text-white transition-colors">Контакты</a>
             <button
               onClick={() => setShowCart(true)}
@@ -82,7 +92,7 @@ export default function Home() {
               СМОТРЕТЬ МЕНЮ
             </a>
             <a
-              href={whatsappLink('Привет! Хочу сделать заказ')}
+              href={whatsappLink('Саламатсызбы! Заказ берүүнү каалайм')}
               target="_blank"
               rel="noopener noreferrer"
               className="border-2 border-green-500 text-green-400 hover:bg-green-500 hover:text-white font-bold px-8 py-4 rounded-full text-lg tracking-wider transition-colors"
@@ -96,7 +106,7 @@ export default function Home() {
       {/* MENU */}
       <section id="menu" className="max-w-6xl mx-auto px-4 py-16">
         <h2 className="text-4xl font-bold text-center tracking-widest mb-10 text-white">
-          НАШ <span className="text-orange-500">МЕНЮ</span>
+          БИЗДИН <span className="text-orange-500">МЕНЮ</span>
         </h2>
 
         {/* Category tabs */}
@@ -120,7 +130,11 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {activeMenu?.items.map((item) => {
             const imgSrc = item.image || activeMenu.defaultImage;
-            const inCart = cart.find((c) => c.name === item.name);
+            const variantIdx = selectedVariants[item.name] ?? 0;
+            const currentVariant = item.variants ? item.variants[variantIdx] : null;
+            const displayPrice = currentVariant ? currentVariant.price : item.price;
+            const cartKey = currentVariant ? `${item.name} (${currentVariant.label})` : item.name;
+            const inCart = cart.find((c) => c.name === cartKey);
             return (
               <div
                 key={item.name}
@@ -143,13 +157,30 @@ export default function Home() {
                 <div className="p-4 flex flex-col flex-1">
                   <div className="flex justify-between items-start mb-1">
                     <h3 className="text-white font-bold text-base leading-tight flex-1">{item.name}</h3>
-                    <span className="text-orange-500 font-bold text-lg ml-2 whitespace-nowrap">{item.price} с</span>
+                    <span className="text-orange-500 font-bold text-lg ml-2 whitespace-nowrap">{displayPrice} с</span>
                   </div>
                   {item.description && (
-                    <p className="text-white/40 text-xs mb-3 leading-relaxed flex-1">{item.description}</p>
+                    <p className="text-white/40 text-xs mb-2 leading-relaxed flex-1">{item.description}</p>
+                  )}
+                  {item.variants && (
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {item.variants.map((v, i) => (
+                        <button
+                          key={v.label}
+                          onClick={() => setSelectedVariants((prev) => ({ ...prev, [item.name]: i }))}
+                          className={`px-2.5 py-1 rounded-full text-xs font-bold tracking-wide transition-all ${
+                            variantIdx === i
+                              ? 'bg-orange-500 text-white'
+                              : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
+                          }`}
+                        >
+                          {v.label}
+                        </button>
+                      ))}
+                    </div>
                   )}
                   <button
-                    onClick={() => addToCart(item.name, item.price)}
+                    onClick={() => addToCart(cartKey, displayPrice)}
                     className={`mt-auto w-full font-bold py-2 rounded-full text-sm tracking-wider transition-all ${
                       inCart
                         ? 'bg-orange-500 text-white'
@@ -179,8 +210,8 @@ export default function Home() {
             <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
               <div className="text-3xl mb-3">📱</div>
               <h3 className="text-white font-bold text-lg mb-1">WhatsApp</h3>
-              <a href={whatsappLink('Привет!')} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
-                +996 779 044 425
+              <a href={whatsappLink('Саламатсызбы!')} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
+                +996 505 250 225
               </a>
             </div>
             <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
@@ -191,12 +222,12 @@ export default function Home() {
             </div>
           </div>
           <a
-            href={whatsappLink('Привет! Хочу сделать заказ')}
+            href={cart.length > 0 ? whatsappLink(buildOrderText()) : whatsappLink('Привет! Хочу сделать заказ')}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-10 py-4 rounded-full text-xl tracking-wider transition-colors"
           >
-            ЗАКАЗАТЬ В WHATSAPP
+            {cart.length > 0 ? `ЗАКАЗАТЬ (${totalItems} поз. — ${totalPrice} с)` : 'ЗАКАЗАТЬ В WHATSAPP'}
           </a>
         </div>
       </section>
@@ -205,6 +236,62 @@ export default function Home() {
       <footer className="border-t border-white/10 py-6 text-center">
         <p className="text-white/30 text-sm tracking-wider">© 2026 KOROZ FOOD — Ноокат, Кыргызстан</p>
       </footer>
+
+      {/* NAV SIDEBAR */}
+      <div
+        className={`fixed inset-0 z-50 transition-all duration-300 ${showNav ? 'visible' : 'invisible'}`}
+        onClick={() => setShowNav(false)}
+      >
+        <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${showNav ? 'opacity-100' : 'opacity-0'}`} />
+        <div
+          className={`absolute top-0 left-0 h-full w-72 bg-[#111] border-r border-white/10 flex flex-col transition-transform duration-300 ease-in-out ${showNav ? 'translate-x-0' : '-translate-x-full'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <Image src="/images/logo.jpeg" alt="logo" width={36} height={36} className="rounded-full object-cover" unoptimized />
+              <span className="text-white font-bold tracking-widest">МЕНЮ</span>
+            </div>
+            <button onClick={() => setShowNav(false)} className="text-white/40 hover:text-white text-2xl leading-none">✕</button>
+          </div>
+          {/* Categories */}
+          <div className="flex-1 overflow-y-auto py-4">
+            {menuCategories.map((cat, i) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  setShowNav(false);
+                  setTimeout(() => {
+                    document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 300);
+                }}
+                style={{ transitionDelay: showNav ? `${i * 40}ms` : '0ms' }}
+                className={`w-full text-left px-6 py-4 font-bold tracking-wider text-base transition-all duration-200 border-b border-white/5 flex items-center gap-3 ${
+                  activeCategory === cat.id
+                    ? 'text-orange-500 bg-orange-500/10'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {activeCategory === cat.id && <span className="w-1 h-5 bg-orange-500 rounded-full" />}
+                {cat.label.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          {/* Footer */}
+          <div className="px-5 py-4 border-t border-white/10">
+            <a
+              href={`https://wa.me/996505250225`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-full text-center tracking-wider transition-colors"
+            >
+              ЗАКАЗАТЬ В WHATSAPP
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* CART MODAL */}
       {showCart && (
