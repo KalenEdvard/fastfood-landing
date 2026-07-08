@@ -51,7 +51,7 @@ export default function Home() {
               <span className="block w-6 h-0.5 bg-white group-hover:bg-orange-500 transition-colors" />
               <span className="block w-6 h-0.5 bg-white group-hover:bg-orange-500 transition-colors" />
             </button>
-            <Image src="/images/logo.jpeg" alt="Koroz Food Logo" width={44} height={44} className="rounded-full object-cover" unoptimized />
+            <Image src="/images/logo.jpeg" alt="Koroz Food Logo" width={44} height={44} className="rounded-full object-cover" />
             <div>
               <span className="text-2xl font-bold tracking-widest text-white">KOROZ</span>
               <span className="text-2xl font-bold tracking-widest text-orange-500"> FOOD</span>
@@ -148,7 +148,6 @@ export default function Home() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 </div>
@@ -250,7 +249,7 @@ export default function Home() {
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
             <div className="flex items-center gap-2">
-              <Image src="/images/logo.jpeg" alt="logo" width={36} height={36} className="rounded-full object-cover" unoptimized />
+              <Image src="/images/logo.jpeg" alt="logo" width={36} height={36} className="rounded-full object-cover" />
               <span className="text-white font-bold tracking-widest">МЕНЮ</span>
             </div>
             <button onClick={() => setShowNav(false)} className="text-white/40 hover:text-white text-2xl leading-none">✕</button>
