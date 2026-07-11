@@ -39,6 +39,10 @@ export default function Home() {
     return `Саламатсызбы! Заказ берүүнү каалайм:\n${lines.join('\n')}\n\nЖалпы: ${totalPrice} сом`;
   }
 
+  function trackWhatsappClick() {
+    fetch('/api/whatsapp-click', { method: 'POST' }).catch(() => {});
+  }
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] font-oswald">
       {/* HEADER */}
@@ -95,6 +99,7 @@ export default function Home() {
               href={whatsappLink('Саламатсызбы! Заказ берүүнү каалайм')}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackWhatsappClick}
               className="border-2 border-green-500 text-green-400 hover:bg-green-500 hover:text-white font-bold px-8 py-4 rounded-full text-lg tracking-wider transition-colors"
             >
               ЗАКАЗАТЬ В WHATSAPP
@@ -209,7 +214,7 @@ export default function Home() {
             <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
               <div className="text-3xl mb-3">📱</div>
               <h3 className="text-white font-bold text-lg mb-1">WhatsApp</h3>
-              <a href={whatsappLink('Саламатсызбы!')} target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
+              <a href={whatsappLink('Саламатсызбы!')} target="_blank" rel="noopener noreferrer" onClick={trackWhatsappClick} className="text-green-400 hover:text-green-300 transition-colors">
                 +996 505 250 225
               </a>
             </div>
@@ -224,6 +229,7 @@ export default function Home() {
             href={cart.length > 0 ? whatsappLink(buildOrderText()) : whatsappLink('Привет! Хочу сделать заказ')}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={trackWhatsappClick}
             className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-10 py-4 rounded-full text-xl tracking-wider transition-colors"
           >
             {cart.length > 0 ? `ЗАКАЗАТЬ (${totalItems} поз. — ${totalPrice} с)` : 'ЗАКАЗАТЬ В WHATSAPP'}
@@ -284,6 +290,7 @@ export default function Home() {
               href={`https://wa.me/996505250225`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackWhatsappClick}
               className="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-full text-center tracking-wider transition-colors"
             >
               ЗАКАЗАТЬ В WHATSAPP
@@ -330,7 +337,7 @@ export default function Home() {
                   href={whatsappLink(buildOrderText())}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setShowCart(false)}
+                  onClick={() => { trackWhatsappClick(); setShowCart(false); }}
                   className="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-full text-center text-lg tracking-wider transition-colors"
                 >
                   ЗАКАЗАТЬ В WHATSAPP
