@@ -9,10 +9,11 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: 'Koroz Food — Бургеры, Шаурма, Пицца в Ноокате',
-  description: 'Koroz Food — фастфуд в Ноокате, Ош, Кыргызстан. Бургеры, шаурма, пицца, роллы, фритюр. Заказ через WhatsApp +996779044425. Доставка и самовывоз.',
+  title: 'Koroz Food — Бургеры, Шаурма, Пицца в Ноокате | Ноокатта фастфуд',
+  description: 'Koroz Food — фастфуд в Ноокате, Ош, Кыргызстан. Бургеры, шаурма, пицца, роллы. Заказ WhatsApp: +996505250225. • Ноокатта бургер, шаурма, пицца, роллдор. Даамдуу тамак. WhatsApp аркылуу заказ бериңиз.',
   keywords: [
     'Koroz Food',
+    'Короз Фуд',
     'фастфуд Ноокат',
     'бургеры Ноокат',
     'шаурма Ноокат',
@@ -25,13 +26,23 @@ export const metadata: Metadata = {
     'еда Ноокат',
     'доставка еды Ноокат',
     'фастфуд Кыргызстан',
-    'Короз Фуд',
     'заказать еду Ноокат',
-    'бургер Кыргызстан',
+    'Ноокатта фастфуд',
+    'Ноокатта бургер',
+    'Ноокатта шаурма',
+    'Ноокатта пицца',
+    'Ноокатта роллдор',
+    'Ноокатта тамак',
+    'тамак заказ Ноокат',
+    'Ноокат тамак жеткирүү',
+    'Кыргызстан фастфуд',
+    'Корз Фуд Ноокат',
+    'Ош фастфуд',
+    'Ош бургер',
   ],
   openGraph: {
-    title: 'Koroz Food — Бургеры, Шаурма, Пицца в Ноокате',
-    description: 'Фастфуд в Ноокате, Ош. Бургеры, шаурма, пицца, роллы. Заказ через WhatsApp.',
+    title: 'Koroz Food — Бургеры, Шаурма, Пицца в Ноокате | Ноокатта фастфуд',
+    description: 'Фастфуд в Ноокате, Ош. Бургеры, шаурма, пицца, роллы. Заказ через WhatsApp. • Ноокатта бургер, шаурма, пицца. WhatsApp аркылуу заказ бериңиз.',
     locale: 'ru_KG',
     type: 'website',
   },
@@ -39,8 +50,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
-      <body className={`${oswald.variable} font-oswald bg-[#0a0a0a] text-white`}>{children}</body>
+    <html lang=ru-KG>
+      <body className={}>{children}</body>
     </html>
   );
 }
