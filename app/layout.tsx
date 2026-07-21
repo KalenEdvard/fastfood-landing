@@ -50,8 +50,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang=ru-KG>
-      <body className={}>{children}</body>
+    <html lang="ru-KG">
+      <body className={`${oswald.variable} font-oswald bg-[#0a0a0a] text-white`}>{children}</body>
     </html>
   );
 }
